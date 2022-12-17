@@ -1,6 +1,6 @@
 let initialState = {}
 
-const currenciesReducer = (state = initialState, action) => {
+const currenciesReducer = (state = initialState, action: any) => {
     switch (action.type) {
         default:
             return state;
