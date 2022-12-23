@@ -4,7 +4,9 @@ type Props = {}
 
 const CurrenciesList: React.FC<Props> = (props) => {
     return (
-        <div>CurrenciesList</div>
+        <div>
+            Table
+        </div>
     );
 }
 
