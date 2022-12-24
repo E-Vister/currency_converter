@@ -1,0 +1,52 @@
+.container {
+  display: inline-flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  padding: 0 15px;
+
+  —webkit—transition: all 0.3s ease;
+  —moz—transition: all 0.3s ease;
+  —o—transition: all 0.3s ease;
+  —ms—transition: all 0.3s ease;
+  transition: all 0.3s ease;
+
+  .center {
+    padding-top: 70px;
+
+    .reverse {
+      align-self: center;
+      width: 50px;
+      min-height: 50px;
+      background: url('https://svgshare.com/i/p3S.svg') no-repeat 50%;
+      background-size: 50px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+  }
+
+  /* pc screen */
+  @media (min-width: 1200px) {
+    padding: 0 150px;
+    flex-direction: row;
+  }
+  /* laptops and big tablets */
+  @media (min-width: 768px) and (max-width: 979px) {
+    flex-direction: row;
+  }
+  /* tablets and big phones */
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    .center {
+      padding-top: 0;
+    }
+  }
+  /* phones */
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+

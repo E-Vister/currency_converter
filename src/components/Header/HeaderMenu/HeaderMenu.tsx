@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 type Props = {}
 
 const HeaderMenu: React.FC<Props> = (props) => {
-    const [currentPage, setCurrentPage] = useState('conventer');
+    const [currentPage, setCurrentPage] = useState('converter');
     const [currentCurrency, setCurrentCurrency] = useState('USD');
     const navigate = useNavigate();
 
@@ -52,8 +52,8 @@ const HeaderMenu: React.FC<Props> = (props) => {
             key: 'default-currency',
         },
         {
-            label: 'Conventer',
-            key: 'conventer',
+            label: 'Converter',
+            key: 'converter',
         },
         {
             label: 'Currencies',

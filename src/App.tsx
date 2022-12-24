@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import * as React from "react";
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";

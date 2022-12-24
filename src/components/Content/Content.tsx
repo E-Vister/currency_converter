@@ -1,6 +1,6 @@
 // @ts-ignore
 import {Route, Routes} from 'react-router-dom';
-import Conventer from "./Conventer/Conventer";
+import Converter from "./Conventer/Converter";
 import CurrenciesList from "./CurrenciesList/CurrenciesList";
 import scss from './Content.module.scss'
 import * as React from "react";
@@ -22,9 +22,9 @@ const Content: React.FC<Props> = (props) => {
             <div className="site-layout-content" style={{ background: colorBgContainer, height: '75vh'}}>
                 <Routes>
                     <Route path={'/*'}
-                           element={<Conventer/>}/>
-                    <Route path={'/conventer/*'}
-                           element={<Conventer/>}/>
+                           element={<Converter/>}/>
+                    <Route path={'/converter/*'}
+                           element={<Converter/>}/>
                     <Route path={'/currency/*'}
                            element={<CurrenciesList/>}/>
                 </Routes>

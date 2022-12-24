@@ -1,0 +1,63 @@
+.container {
+  margin: 24px 0;
+  padding: 30px 20px 15px;
+  border: 1px solid #cdcdcd;
+  max-width: 310px;
+  height: 122px;
+
+  input {
+    width: 100%;
+    height: 46px;
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 16px;
+    outline: 0;
+    border: none;
+    font-family: Graphik Semibold, 'Helvetica CY', Arial, sans-serif;
+    border-radius: 4px;
+  }
+
+  .rate {
+    width: 100%;
+    height: 14px;
+    text-transform: uppercase;
+    color: #777;
+  }
+
+  —webkit—transition: all 0.3s ease;
+  —moz—transition: all 0.3s ease;
+  —o—transition: all 0.3s ease;
+  —ms—transition: all 0.3s ease;
+  transition: all 0.3s ease;
+
+  /* tablets and big phones */
+  @media (max-width: 767px) {
+    height: 102px;
+    margin: 16px 0;
+    padding-top: 25px;
+
+    input {
+      margin-bottom: 2px;
+    }
+  }
+  /* phones */
+  @media (max-width: 480px) {
+    height: 97px;
+    margin: 14px 0;
+    padding-top: 20px;
+
+    input {
+      margin-bottom: 2px;
+    }
+  }
+}
+
+@font-face {
+  font-family: "Graphik Semibold";
+  src: url("//db.onlinewebfonts.com/t/2aa5f6db10ab7b69465c95555c235503.eot");
+  src: url("//db.onlinewebfonts.com/t/2aa5f6db10ab7b69465c95555c235503.eot?#iefix") format("embedded-opentype"),
+  url("//db.onlinewebfonts.com/t/2aa5f6db10ab7b69465c95555c235503.woff2") format("woff2"),
+  url("//db.onlinewebfonts.com/t/2aa5f6db10ab7b69465c95555c235503.woff") format("woff"),
+  url("//db.onlinewebfonts.com/t/2aa5f6db10ab7b69465c95555c235503.ttf") format("truetype"),
+  url("//db.onlinewebfonts.com/t/2aa5f6db10ab7b69465c95555c235503.svg#Graphik Semibold") format("svg");
+}

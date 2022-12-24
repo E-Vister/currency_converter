@@ -1,4 +1,12 @@
-let initialState = {}
+type InitialStateType = {
+    defaultCurrency: string,
+    firstCurrency: string,
+
+}
+
+let initialState = {
+
+}
 
 const currenciesReducer = (state = initialState, action: any) => {
     switch (action.type) {

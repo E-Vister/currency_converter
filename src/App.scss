@@ -1,0 +1,17 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    height: 100vh;
+
+    main {
+        @media (max-width: 767px) {
+            padding: 0 15px !important;
+        }
+        /* phones */
+        @media (max-width: 480px) {
+            padding: 0 !important;
+        }
+    }
+}
