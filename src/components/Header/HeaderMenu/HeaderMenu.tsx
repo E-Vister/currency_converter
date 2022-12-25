@@ -1,12 +1,13 @@
 import React, {useState} from "react";
-import {Button, Dropdown, Menu, MenuProps, message} from "antd";
+import {Menu, MenuProps} from "antd";
 import {useNavigate} from "react-router-dom";
+import HeaderDropdown from "./HeaderDropdown/HeaderDropdown";
 
 type Props = {}
 
 const HeaderMenu: React.FC<Props> = (props) => {
     const [currentPage, setCurrentPage] = useState('converter');
-    const [currentCurrency, setCurrentCurrency] = useState('USD');
+
     const navigate = useNavigate();
 
     const onClick: MenuProps['onClick'] = (e) => {
@@ -15,39 +16,11 @@ const HeaderMenu: React.FC<Props> = (props) => {
             setCurrentPage(e.key);
         }
     };
-    const handleDropDownMenuClick: MenuProps['onClick'] = (e) => {
-        setCurrentCurrency(e.key);
-        message.info(`You chose ${e.key}.`);
-    }
-
-    const dropdownItems: MenuProps['items'] = [
-        {
-            label: 'United States Dollar',
-            key: 'USD'
-        },
-        {
-            label: 'Ukrainian Hryvnia',
-            key: 'UAH'
-        },
-        {
-            label: 'Belarusian Ruble',
-            key: 'BYN'
-        }
-    ];
-
-    const dropdownMenuProps = {
-        items: dropdownItems,
-        onClick: handleDropDownMenuClick,
-    };
 
     const headerItems: MenuProps['items'] = [
         {
             label: (
-                <Dropdown menu={dropdownMenuProps} placement="bottom">
-                    <Button type="dashed" ghost>
-                        <span style={{width: '27px'}}>{currentCurrency}</span>
-                    </Button>
-                </Dropdown>
+                <HeaderDropdown/>
             ),
             key: 'default-currency',
         },

@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+
+    .ant-dropdown {
+        overflow-y: scroll;
+        max-height: 500px;
+        border: 1px solid #cdcdcd;
+        border-radius: 1em;
+        margin-top: 30px;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}

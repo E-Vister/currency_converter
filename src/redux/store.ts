@@ -8,4 +8,5 @@ let reducers = combineReducers({
 
 let store = legacy_createStore(reducers, applyMiddleware(thunkMiddleware));
 
+export type RootState = ReturnType<typeof reducers>
 export default store;

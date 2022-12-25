@@ -1,19 +1,25 @@
 import * as React from "react";
 import {useState} from "react";
 import {Radio, RadioChangeEvent} from "antd";
+import CalcDropdown from "./CalcDropdown/CalcDropdown";
 
-type Props = {}
+type Props = {
+    currencyKey: string
+}
 
 const CalcMenu: React.FC<Props> = (props) => {
-    const options = [
+    const [value, setValue] = useState(props.currencyKey);
+
+    const defaultOptions = [
         {label: 'USD', value: 'USD'},
+        {label: 'EUR', value: 'EUR'},
         {label: 'BYN', value: 'BYN'},
-        {label: 'UAH', value: 'UAH'},
     ];
 
-    const [value, setValue] = useState('USD');
+    const options = defaultOptions.find(i => i.value === props.currencyKey)
+        ? [...defaultOptions, {label: 'UAH', value: 'UAH'}, {label: <CalcDropdown/>, value: 'menu'}]
+        : [...defaultOptions, {label: props.currencyKey, value: props.currencyKey}, {label: <CalcDropdown/>, value: 'menu'}];
     const onChange = ({target: {value}}: RadioChangeEvent) => {
-        console.log('radio1 checked', value);
         setValue(value);
     };
 
