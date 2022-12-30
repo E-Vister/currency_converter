@@ -6,7 +6,6 @@ import {useTypedSelector} from "../../../../../../hooks/useTypedSelector";
 type Props = {}
 
 const CalcDropdown: React.FC<Props> = (props) => {
-    // !!!!!!!!!!!!!!! currentCurrency !!!!!!!!!!!!!
     const [currentCurrency, setCurrentCurrency] = useState('USD');
     const currencies = useTypedSelector(state => state.currencies.list);
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Radio, RadioChangeEvent} from "antd";
 import CalcDropdown from "./CalcDropdown/CalcDropdown";
 
@@ -9,6 +9,10 @@ type Props = {
 
 const CalcMenu: React.FC<Props> = (props) => {
     const [value, setValue] = useState(props.currencyKey);
+
+    useEffect(() => {
+        setValue(props.currencyKey);
+    }, [props.currencyKey]);
 
     const defaultOptions = [
         {label: 'USD', value: 'USD'},

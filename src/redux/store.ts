@@ -1,12 +1,17 @@
-import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
-import thunkMiddleware from 'redux-thunk';
+import {Action, applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import thunkMiddleware, {ThunkAction} from 'redux-thunk';
 import currenciesReducer from "./currencies-reducer";
 
 let reducers = combineReducers({
     currencies: currenciesReducer
 });
 
-let store = legacy_createStore(reducers, applyMiddleware(thunkMiddleware));
-
 export type RootState = ReturnType<typeof reducers>
+
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, RootState, unknown, A>
+
+const store = legacy_createStore(reducers, applyMiddleware(thunkMiddleware));
+
 export default store;
