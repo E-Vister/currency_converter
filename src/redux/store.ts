@@ -1,9 +1,11 @@
 import {Action, applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import thunkMiddleware, {ThunkAction} from 'redux-thunk';
 import currenciesReducer from "./currencies-reducer";
+import appReducer from "./app-reducer";
 
 let reducers = combineReducers({
-    currencies: currenciesReducer
+    app: appReducer,
+    currencies: currenciesReducer,
 });
 
 export type RootState = ReturnType<typeof reducers>
