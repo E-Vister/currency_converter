@@ -7,5 +7,10 @@ export type CurrencyType = {
         result: number
     }
 }
-export type ListType = Array<{key: string, label: string}>
+export type ListType = Array<{ key: string, label: string }>
+
+export type ResponseCurrenciesType = [
+    CurrencyType,
+    CurrencyType,
+]
 

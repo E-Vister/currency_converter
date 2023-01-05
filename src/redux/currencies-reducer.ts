@@ -1,4 +1,4 @@
-import {CurrencyType, ListType} from "../types/types";
+import {CurrencyType, ListType, ResponseCurrenciesType} from "../types/types";
 import {BaseThunkType, InferActionsTypes} from './store';
 import {currenciesAPI} from "../api/api";
 
@@ -69,8 +69,23 @@ const currenciesReducer = (state = initialState, action: ActionsTypes): InitialS
         }
         case "CC/CURRENCIES/SET_LIST": {
             return {
-               ...state,
+                ...state,
                 list: action.list
+            }
+        }
+        case "CC/CURRENCIES/SET_CURRENCIES": {
+            if (action.boxType === 'have') {
+                return {
+                    ...state,
+                    firstCurrency: action.currencies[0],
+                    secondCurrency: action.currencies[1]
+                }
+            } else {
+                return {
+                    ...state,
+                    firstCurrency: action.currencies[1],
+                    secondCurrency: action.currencies[0]
+                }
             }
         }
         default:
@@ -79,15 +94,29 @@ const currenciesReducer = (state = initialState, action: ActionsTypes): InitialS
 }
 
 export const actions = {
-    updateCalcField: (amount: number, boxType: string) => ({type: 'CC/CURRENCIES/UPDATE_CALC_FIELD', amount, boxType} as const),
+    updateCalcField: (amount: number, boxType: string) => ({
+        type: 'CC/CURRENCIES/UPDATE_CALC_FIELD',
+        amount,
+        boxType
+    } as const),
     swapCurrencies: () => ({type: 'CC/CURRENCIES/SWAP_CURRENCIES'} as const),
     setList: (list: ListType) => ({type: 'CC/CURRENCIES/SET_LIST', list} as const),
+    setCurrencies: (currencies: ResponseCurrenciesType, boxType: string) => ({
+        type: 'CC/CURRENCIES/SET_CURRENCIES',
+        currencies,
+        boxType
+    } as const),
 }
 
 export const getList = (): ThunkType => async (dispatch) => {
     let list = await currenciesAPI.getList();
     dispatch(actions.setList(list));
     return list;
+}
+
+export const convert = (from: string, to: string, amount: number, type: string): ThunkType => async (dispatch) => {
+    let currencies = await currenciesAPI.convert(from, to, amount);
+    dispatch(actions.setCurrencies(currencies, type));
 }
 
 export default currenciesReducer;

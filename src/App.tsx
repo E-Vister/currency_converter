@@ -3,7 +3,7 @@ import * as React from "react";
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
-import {Layout} from 'antd';
+import {Layout, Spin} from 'antd';
 import {useTypedSelector} from "./hooks/useTypedSelector";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
@@ -20,7 +20,7 @@ const App: React.FC = () => {
     })
 
     if (!initialized) {
-        return <></>
+        return <Spin size="large" />
     }
 
     return (

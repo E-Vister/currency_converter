@@ -14,7 +14,7 @@ const CalculateBlock: React.FC<Props> = (props) => {
     return (
         <div className={scss.container}>
             <div className={scss.title}>{props.type === 'have' ? 'I have' : 'I will get'}</div>
-            <CalcMenu currencyKey={props.type === 'have' ? fC.key : sC.key}/>
+            <CalcMenu currencyKey={props.type === 'have' ? fC.key : sC.key} type={props.type}/>
             <CalcInputBox type={props.type} firstCurrency={fC} secondCurrency={sC}/>
         </div>
     );
