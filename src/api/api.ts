@@ -29,5 +29,11 @@ export const currenciesAPI = {
         return Promise.all([firstCurrency, secondCurrency]).then((val) => {
             return val;
         });
+    },
+    getTable(source: string) {
+        return instance.get(`table/${source}`)
+            .then((res) => {
+                return res.data;
+            })
     }
 }

@@ -14,3 +14,5 @@ export type ResponseCurrenciesType = [
     CurrencyType,
 ]
 
+export type TableType = Array<{key: number, cname: string, ccode: string, quote: number}>
+

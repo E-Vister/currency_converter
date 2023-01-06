@@ -1,7 +1,10 @@
 import * as React from "react";
-import {Table} from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import {Spin, Table} from 'antd';
+import type {ColumnsType} from 'antd/es/table';
 import {useState} from "react";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
+import {useDispatch} from "react-redux";
+import {actions} from "../../../redux/currencies-reducer";
 
 
 type DataType = {
@@ -9,82 +12,7 @@ type DataType = {
     cname: string,
     ccode: string,
     quote: number
-
-}
-
-const initialDataSource: DataType[] = [
-    {
-        key: '1',
-        cname: 'United States Dollar',
-        ccode: 'USD',
-        quote: 1.00000,
-    },
-    {
-        key: '2',
-        cname: 'Euro',
-        ccode: 'EUR',
-        quote: 0.93225,
-    },
-    {
-        key: '3',
-        cname: 'Ukrainian Hryvnia',
-        ccode: 'UAH',
-        quote: 36.75162,
-    },
-    {
-        key: '4',
-        cname: 'New Belarusian Ruble',
-        ccode: 'BYN',
-        quote: 2.52423,
-    },
-    {
-        key: '5',
-        cname: 'United States Dollar',
-        ccode: 'USD',
-        quote: 1.00000,
-    },
-    {
-        key: '6',
-        cname: 'Euro',
-        ccode: 'EUR',
-        quote: 0.93225,
-    },
-    {
-        key: '7',
-        cname: 'Ukrainian Hryvnia',
-        ccode: 'UAH',
-        quote: 36.75162,
-    },
-    {
-        key: '8',
-        cname: 'New Belarusian Ruble',
-        ccode: 'BYN',
-        quote: 2.52423,
-    },        {
-        key: '9',
-        cname: 'United States Dollar',
-        ccode: 'USD',
-        quote: 1.00000,
-    },
-    {
-        key: '10',
-        cname: 'Euro',
-        ccode: 'EUR',
-        quote: 0.93225,
-    },
-    {
-        key: '11',
-        cname: 'Ukrainian Hryvnia',
-        ccode: 'UAH',
-        quote: 36.75162,
-    },
-    {
-        key: '12',
-        cname: 'New Belarusian Ruble',
-        ccode: 'BYN',
-        quote: 2.52423,
-    },
-];
+};
 
 const columns: ColumnsType<DataType> = [
     {
@@ -107,28 +35,32 @@ const columns: ColumnsType<DataType> = [
 type Props = {}
 
 const CurrenciesList: React.FC<Props> = (props) => {
-    const [dataSource, setDataSource] = useState<DataType[]>(initialDataSource);
+    const {table, isFetching} = useTypedSelector(state => state.currencies);
+    const dispatch = useDispatch();
 
     const rowSelection = {
         onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-            let newDataSource: DataType[] = [...initialDataSource];
+            let newDataSource: DataType[] = [...table];
             selectedRows.forEach((i) => newDataSource = newDataSource.filter((j) => j.key !== i.key));
-            setDataSource([...selectedRows, ...newDataSource]);
+            dispatch(actions.setTable([...selectedRows, ...newDataSource]));
         }
     };
 
     return (
         <div>
-            <Table
-                dataSource={dataSource}
-                rowSelection={{
-                    type: 'checkbox',
-                    ...rowSelection,
-                }}
-                pagination={(window.matchMedia("(max-width: 767px)").matches)
-                    ? {pageSize: 7, position: ['topRight']}
-                    : {pageSize: 9, position: ['topRight']}}
-                columns={columns}/>;
+            {isFetching
+                ? <Spin size="large" style={{position: 'absolute', top: '50%', left: 0, right: 0, margin: 'auto'}}/>
+                : <Table
+                    dataSource={table}
+                    rowSelection={{
+                        type: 'checkbox',
+                        ...rowSelection,
+                    }}
+                    pagination={(window.matchMedia("(max-width: 767px)").matches)
+                        ? {pageSize: 7, position: ['topRight']}
+                        : {pageSize: 9, position: ['topRight']}}
+                    columns={columns}/>}
+
         </div>
     );
 }

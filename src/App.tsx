@@ -20,7 +20,7 @@ const App: React.FC = () => {
     })
 
     if (!initialized) {
-        return <Spin size="large" />
+        return <Spin size="large" style={{position: 'absolute', top: '50%', left: 0, right: 0, margin: 'auto'}}/>
     }
 
     return (

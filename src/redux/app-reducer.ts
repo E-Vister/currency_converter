@@ -1,5 +1,5 @@
 import {BaseThunkType, InferActionsTypes} from "./store";
-import {getList} from "./currencies-reducer";
+import {getList, getTable} from "./currencies-reducer";
 
 let initialState = {
     initialized: false
@@ -23,8 +23,9 @@ export const actions = {
 
 export const initializeApp = (): ThunkType => async (dispatch) => {
     let listPromise = dispatch(getList());
+    let tablePromise = dispatch(getTable('USD'));
 
-    Promise.all([listPromise])
+    Promise.all([listPromise, tablePromise])
         .then(() => {
             dispatch(actions.initializedSuccess());
         });

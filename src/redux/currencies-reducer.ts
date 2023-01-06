@@ -1,4 +1,4 @@
-import {CurrencyType, ListType, ResponseCurrenciesType} from "../types/types";
+import {CurrencyType, ListType, ResponseCurrenciesType, TableType} from "../types/types";
 import {BaseThunkType, InferActionsTypes} from './store';
 import {currenciesAPI} from "../api/api";
 
@@ -23,6 +23,8 @@ let initialState = {
         }
     } as CurrencyType,
     list: undefined as undefined | ListType,
+    table: [] as TableType,
+    isFetching: false,
 }
 
 const currenciesReducer = (state = initialState, action: ActionsTypes): InitialState => {
@@ -88,6 +90,18 @@ const currenciesReducer = (state = initialState, action: ActionsTypes): InitialS
                 }
             }
         }
+        case "CC/CURRENCIES/SET_TABLE": {
+            return {
+                ...state,
+                table: action.table
+            }
+        }
+        case "CC/CURRENCIES/SWITCH_IS_FETCHING": {
+            return {
+                ...state,
+                isFetching: action.status
+            }
+        }
         default:
             return state;
     }
@@ -106,6 +120,8 @@ export const actions = {
         currencies,
         boxType
     } as const),
+    setTable: (table: any) => ({type: 'CC/CURRENCIES/SET_TABLE', table} as const),
+    switchIsFetching: (status: boolean) => ({type: 'CC/CURRENCIES/SWITCH_IS_FETCHING', status} as const),
 }
 
 export const getList = (): ThunkType => async (dispatch) => {
@@ -117,6 +133,13 @@ export const getList = (): ThunkType => async (dispatch) => {
 export const convert = (from: string, to: string, amount: number, type: string): ThunkType => async (dispatch) => {
     let currencies = await currenciesAPI.convert(from, to, amount);
     dispatch(actions.setCurrencies(currencies, type));
+}
+
+export const getTable = (source: string): ThunkType => async (dispatch) => {
+    dispatch(actions.switchIsFetching(true));
+    let table = await currenciesAPI.getTable(source);
+    dispatch(actions.switchIsFetching(false));
+    dispatch(actions.setTable(table));
 }
 
 export default currenciesReducer;
