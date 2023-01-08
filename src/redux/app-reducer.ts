@@ -22,8 +22,8 @@ export const actions = {
 }
 
 export const initializeApp = (): ThunkType => async (dispatch) => {
-    let listPromise = dispatch(getList());
-    let tablePromise = dispatch(getTable('USD'));
+    let listPromise = await dispatch(getList());
+    let tablePromise = await dispatch(getTable('USD'));
 
     Promise.all([listPromise, tablePromise])
         .then(() => {

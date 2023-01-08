@@ -53,10 +53,12 @@ Getting Started
 
 - Open the terminal and run the following commands
 
-```
-git clone https://github.com/E-Vister/currency_conventer.git
-cd currency_conventer
-npm install
+```bash
+$ git clone https://github.com/E-Vister/currency_conventer.git
+
+$ cd currency_conventer
+
+$ npm install
 ```
 
 - Wait for all the dependencies to be installed

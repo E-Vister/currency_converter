@@ -1,6 +1,7 @@
 import {CurrencyType, ListType, ResponseCurrenciesType, TableType} from "../types/types";
 import {BaseThunkType, InferActionsTypes} from './store';
 import {currenciesAPI} from "../api/api";
+import React from "react";
 
 let initialState = {
     defaultCurrency: 'USD',
@@ -24,6 +25,8 @@ let initialState = {
     } as CurrencyType,
     list: undefined as undefined | ListType,
     table: [] as TableType,
+    tableToModify: [] as TableType,
+    starredRows: [] as React.Key[],
     isFetching: false,
 }
 
@@ -91,15 +94,40 @@ const currenciesReducer = (state = initialState, action: ActionsTypes): InitialS
             }
         }
         case "CC/CURRENCIES/SET_TABLE": {
+            let tableToModify, restTable, starredRows;
+
+            if (state.starredRows.length !== 0) {
+                starredRows = [...state.starredRows]
+                    .map((i) => [...action.table].filter((j) => j.key === i)).flat();
+                restTable = starredRows
+                    .map((i) => [...action.table].filter((j) => j.key !== i.key)).flat();
+                tableToModify = [...starredRows, ...restTable];
+            } else {
+                tableToModify = action.table;
+            }
+
             return {
                 ...state,
-                table: action.table
+                table: action.table,
+                tableToModify
             }
         }
         case "CC/CURRENCIES/SWITCH_IS_FETCHING": {
             return {
                 ...state,
                 isFetching: action.status
+            }
+        }
+        case "CC/CURRENCIES/SET_STARRED": {
+            return {
+                ...state,
+                starredRows: action.keys
+            }
+        }
+        case "CC/CURRENCIES/UPDATE_TABLE": {
+            return {
+                ...state,
+                tableToModify: action.table
             }
         }
         default:
@@ -120,8 +148,10 @@ export const actions = {
         currencies,
         boxType
     } as const),
-    setTable: (table: any) => ({type: 'CC/CURRENCIES/SET_TABLE', table} as const),
+    setTable: (table: TableType) => ({type: 'CC/CURRENCIES/SET_TABLE', table} as const),
+    updateTable: (table: any[]) => ({type: 'CC/CURRENCIES/UPDATE_TABLE', table} as const),
     switchIsFetching: (status: boolean) => ({type: 'CC/CURRENCIES/SWITCH_IS_FETCHING', status} as const),
+    setStarred: (keys: React.Key[]) => ({type: 'CC/CURRENCIES/SET_STARRED', keys} as const),
 }
 
 export const getList = (): ThunkType => async (dispatch) => {
